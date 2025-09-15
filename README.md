@@ -2,114 +2,106 @@
 
 
 ## 📖 Abstract
-This project focuses on performance tuning of PySpark jobs, transforming inefficient queries into optimized Spark workloads. The exercise highlights how Spark’s performance can degrade when queries are poorly structured, with excessive shuffles, suboptimal operators, or imbalanced partitioning.
-
-The provided baseline code (optimize.py) attempted to compute the number of answers per question per month but did so inefficiently, generating unnecessary shuffles and intermediate results. My task was to analyze the physical execution plan and apply best practices in Spark optimization.
-
-Key improvements included:
-
-* Operator choice: replacing costly transformations with more efficient APIs.
-
-* Shuffle minimization: reducing data movement through judicious use of groupBy, join, and mapPartitions.
-
-* Partition tuning: rebalancing data distribution to avoid stragglers.
-
-* Data format selection: leveraging columnar storage for downstream efficiency.
-
-Through this project, I gained practical experience in reading Spark's execution plans, identifying bottlenecks, and applying a structured approach to performance tuning. The optimized pipeline produced the same results as the baseline but with significantly reduced runtime, demonstrating how developer choices directly impact big data job performance.
+This project focuses on redesigning an existing post-sales data pipeline in Apache Spark. You are tasked with generating a refreshed sales report using historical and customer churn data. The goal is to restructure the existing pipeline for improved maintainability, incorporate Spark SQL transformations, and deliver insights for business decision-makers. The redesigned pipeline outputs refined datasets and aggregated metrics useful for post-sales analysis.
 
 
 
 ## 🛠 Requirements
-- Apache Spark 3.x (local or cluster mode)
-- Hadoop HDFS accessible (local Hortonworks sandbox recommended)
-- Python 3.8+
-- Input dataset: automobile incident history (data.csv)
-- GitHub repo with Spark script (autoinc_spark.py), shell script, README, and logs
+- Apache Spark (Databricks or local Spark environment)
+- Customer churn and post-sales datasets (CSV format)
+- Proficiency in PySpark and Spark SQL
+- Ability to use Spark DataFrames and write clean transformation logic
+- Optional: Data visualization tools or export to CSV
 
 
 
 ## 🧰 Setup
-- Place input file data.csv into HDFS (or local FS for testing)
-- Ensure Spark and Hadoop sandbox are running
-- Clone repository
-- Verify autoinc_spark.py and run_spark.sh are executable
+- Download the legacy post-sales datasets
+- Inspect the provided starter Spark pipeline
+- Create a new Spark notebook or script
+- Redesign and implement data transformations
+- Run job and validate output for accuracy
 
 
 
 ## 📊 Dataset
-- Automobile incident history dataset (data.csv)
-- Columns: incident_id, incident_type (I/A/R), vin_number, make, model, year,
-  incident_date, description
+- Input: Historical post-sales and customer churn data in CSV format
+- Fields include customer ID, churn flag, purchase history, plan type, and region
+- Data loaded into Spark DataFrames for transformation and aggregation
 
 
 
 ## ⏱️ Run Steps
-- Submit Spark job with:
-  spark-submit autoinc_spark.py
-- Script flow:
-  1. Load input data
-  2. Propagate make/year info into accident records using VIN as key
-  3. Filter accident incidents
-  4. Map to (make-year, 1) key-value pairs
-  5. Aggregate counts via reduceByKey
-  6. Save output as CSV in HDFS
+- Read datasets into Spark DataFrames
+- Clean and transform raw fields using PySpark
+- Apply business rules to derive metrics (e.g., churn rate, sales trends)
+- Write final output to a CSV or display DataFrame
+- Optionally visualize results or export to downstream systems
 
 
 
 ## 📈 Outputs
-- CSV files written to HDFS with accident counts per make-year
-- Example output:
-  Nissan-2003,1
-  BMW-2008,10
-  MERCEDES-2013,2
+- Aggregated dataset summarizing post-sales trends and churn insights
+- Redesigned Spark logic implementing modular transformations
+- Output CSV or printed DataFrame summarizing final business metrics
+- Optional visualizations or graphs based on trends
 
 
 
 ## 📸 Evidence
 
-![spark_job_log.png](./evidence/spark_job_log.png)  
-Screenshot of successful Spark job execution
+![dataset_preview.png](./evidence/dataset_preview.png)  
+Screenshot of Spark DataFrame showing preview of cleaned dataset
 
-![hdfs_output.png](./evidence/hdfs_output.png)  
-Screenshot of accident counts written to HDFS
+![report_output.png](./evidence/report_output.png)  
+Screenshot of final aggregated output file contents
+
+![spark_job_dag.png](./evidence/spark_job_dag.png)  
+Screenshot of Spark job DAG representing execution flow
+
+![transformation_logic.png](./evidence/transformation_logic.png)  
+Screenshot of code applying business logic transformations
 
 
 
 
 ## 📎 Deliverables
 
-- [`- autoinc_spark.py (Spark job)`](./deliverables/- autoinc_spark.py (Spark job))
+- [`- Spark notebook implementing redesign of post-sales reporting pipeline`](./deliverables/- Spark notebook implementing redesign of post-sales reporting pipeline)
 
-- [`- run_spark.sh (shell script wrapper)`](./deliverables/- run_spark.sh (shell script wrapper))
+- [`- Transformed sales and customer churn datasets`](./deliverables/- Transformed sales and customer churn datasets)
 
-- [`- README with setup + run steps`](./deliverables/- README with setup + run steps)
+- [`- Final CSV output file summarizing key metrics stored in /deliverables/`](./deliverables/- Final CSV output file summarizing key metrics stored in /deliverables/)
 
-- [`- Raw output files in /deliverables/ (CSV results from HDFS)`](./deliverables/- Raw output files in /deliverables/ (CSV results from HDFS))
+- [`- Summary notes discussing redesign choices and business rationale`](./deliverables/- Summary notes discussing redesign choices and business rationale)
 
-- [`- Logs in /deliverables/ (command-line job output)`](./deliverables/- Logs in /deliverables/ (command-line job output))
+- [`- README with project overview, run steps, and data description`](./deliverables/- README with project overview, run steps, and data description)
 
 
 
 
 ## 🛠️ Architecture
-- Spark job running on Hadoop sandbox
-- RDD transformations (map, groupByKey, flatMap, reduceByKey)
-- Input: CSV in HDFS
-- Output: accident counts by make-year in HDFS CSVs
+- Spark-based data pipeline
+- Input CSV files loaded into Spark DataFrames
+- PySpark transformations for cleaning, deriving, and aggregating data
+- Output in-memory or exported as CSV
+- No complex orchestration or external dependencies
 
 
 
 ## 🔍 Monitoring
-- Observe Spark job logs in console
-- Inspect HDFS output folder for generated CSV files
+- Manual inspection of Spark job DAG
+- Printed output or CSV validation
+- Spark UI optional for stage-level review
+- Compare before-and-after results using summary statistics
 
 
 
 ## ♻️ Cleanup
-- Remove HDFS output directory before re-running job
-- Shut down Hadoop sandbox VM if not needed
+- Delete temporary or intermediate DataFrames
+- Clean up workspace files or staging outputs
+- Save only final outputs and the refined notebook in the repository
 
 
 
-*Generated automatically via Python + Jinja2 + SQL Server table `tblMiniProjectProgress` on 09-15-2025 00:57:56*
+*Generated automatically via Python + Jinja2 + SQL Server table `tblMiniProjectProgress` on 09-15-2025 18:03:59*
