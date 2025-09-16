@@ -1,0 +1,25 @@
+# Ignore Python virtual environments
+venv/
+.env/
+.venv/
+
+# Byte-compiled / cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Spark output folders (optional but useful)
+output/
+*.crc
+
+# VS Code settings
+.vscode/
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Logs and temp
+*.log
+*.tmp
+*.bak
