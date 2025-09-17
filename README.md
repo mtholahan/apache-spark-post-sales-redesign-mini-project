@@ -2,50 +2,53 @@
 
 
 ## 📖 Abstract
-This project focuses on redesigning an existing post-sales data pipeline in Apache Spark. You are tasked with generating a refreshed sales report using historical and customer churn data. The goal is to restructure the existing pipeline for improved maintainability, incorporate Spark SQL transformations, and deliver insights for business decision-makers. The redesigned pipeline outputs refined datasets and aggregated metrics useful for post-sales analysis.
+This mini project uses Apache Spark and PySpark to analyze post-sales automotive data. The task is to group records by vehicle make and year, count their occurrences, and save the result to HDFS-compatible output using Spark’s distributed text format. The project reinforces Spark RDDs, map-reduce patterns, and the HDFS write model — all executed locally in a WSL2 Ubuntu environment.
 
 
 
 ## 🛠 Requirements
-- Ubuntu / WSL environment
+- WSL2 with Ubuntu 22.04
 - Java and Apache Spark installed locally
-- PySpark (Python bindings for Spark)
-- WSL2 with Ubuntu 22.04 (via Windows Terminal)
-- Python 3
-- Virtual environment for dependency isolation
+- Python 3 and virtual environment (venv)
+- PySpark installed in venv
+- Basic understanding of RDD operations and Spark job submission
 
 
 
 ## 🧰 Setup
-- Clone the repository or copy the files locally
-- Ensure Java, Spark, and Python are correctly installed
-- Run the provided shell script (run.sh) which:
-  - Activates the virtual environment
-  - Deletes previous output directory (if any)
-  - Submits the PySpark job
-  - Deactivates the environment afterward
+- Ensure Java and Apache Spark are installed in Ubuntu
+- Create and activate a virtual environment
+- Install PySpark via pip
+- Use the provided run.sh script to:
+  - Activate the virtual environment
+  - Delete any previous Spark output directory
+  - Submit the job via spark-submit
+  - Deactivate the environment afterward
 
 
 
 ## 📊 Dataset
-- A CSV file named data.csv located in the project directory
-- Contains rows representing automobile sales entries
-- Columns include Make, Model, Year, etc.
+- A single CSV file: data.csv
+- Each row represents a vehicle record
+- Fields include Make, Model, and Year
 
 
 
 ## ⏱️ Run Steps
-- Launch Ubuntu shell in the project directory
-- Run bash run.sh
-- The script handles environment setup and job submission
+- Open Ubuntu terminal (WSL2)
+- Navigate to the project directory:
+    wsl
+    cd ~/spark_projects/post_sales_report
+- Run the job:
+    bash run.sh
 
 
 
 ## 📈 Outputs
-- Output directory written by Spark (./output)
-- Contains part-00000 file with final results
-- Each line is in the format: Make-Year,Count
-- _SUCCESS marker to indicate job completion
+- Output written to ./output/ directory
+- Main data file: part-00000
+- Each line formatted as Make-Year,Count
+- Includes Spark _SUCCESS marker
 
 
 
@@ -55,7 +58,7 @@ This project focuses on redesigning an existing post-sales data pipeline in Apac
 Terminal output showing successful Spark execution and file creation
 
 ![02_output_file.png](./evidence/02_output_file.png)  
-The Spark output file
+Screenshot of generated part-00000 file content
 
 
 
@@ -70,23 +73,23 @@ The Spark output file
 
 
 ## 🛠️ Architecture
-- Standalone PySpark job executed via spark-submit
-- Local CSV source -> RDD transformation -> grouped counts -> saved text file
-- All compute done locally (single-node)
+- Local Spark job (single-node)
+- RDD-based transformation pipeline
+- Output stored using Spark's saveAsTextFile() (HDFS-compatible directory structure)
 
 
 
 ## 🔍 Monitoring
-- Observed job status via terminal
-- Used _SUCCESS file as job completion confirmation
-- Optionally monitored performance via log messages
+- Job success confirmed via _SUCCESS file
+- Output reviewed in part-00000 file
+- Basic timing and logging in terminal
 
 
 
 ## ♻️ Cleanup
-- Remove generated output/ directory between runs
-- Optionally archive logs or old outputs
-- Virtual environment stored locally and excluded via .gitignore
+- run.sh deletes output directory on re-run
+- Virtual environment excluded via .gitignore
+- Optional: archive outputs and screenshots post-run
 
 
-*Generated automatically via Python + Jinja2 + SQL Server table `tblMiniProjectProgress` on 09-17-2025 01:20:50*
+*Generated automatically via Python + Jinja2 + SQL Server table `tblMiniProjectProgress` on 09-17-2025 01:32:55*
