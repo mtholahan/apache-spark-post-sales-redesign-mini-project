@@ -75,5 +75,8 @@ if __name__ == "__main__":
     make_kv = enhance_make.map(lambda x: extract_make_key_value(x))
     result = make_kv.filter(lambda x: x[0] != "INVALID").reduceByKey(lambda x, y: x + y)
 
+
     result.map(lambda x: f"{x[0]},{x[1]}").saveAsTextFile("output")
+    print("✅ Output written to ./output/")
+    
     sc.stop()

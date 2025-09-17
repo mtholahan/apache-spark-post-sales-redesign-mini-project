@@ -1,13 +1,22 @@
 #!/bin/bash
 
-# Activate Python virtual environment (optional)
-source ~/pyspark_venv/bin/activate
+set -e
 
-# Remove old output directory if it exists
-rm -rf output
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+VENV_DIR="$HOME/pyspark_venv"
+OUTPUT_DIR="$SCRIPT_DIR/output"
 
-# Submit the Spark job
-spark-submit autoinc_spark.py
+echo "🔧 Activating virtual environment..."
+source "$VENV_DIR/bin/activate"
 
-# Deactivate virtual environment
+echo "🧹 Cleaning output..."
+rm -rf "$OUTPUT_DIR"
+
+echo "🚀 Running Spark job..."
+spark-submit "$SCRIPT_DIR/autoinc_spark.py"
+
+echo "✅ Job complete. Output at: $OUTPUT_DIR"
+
+echo "🔻 Deactivating..."
 deactivate
+
