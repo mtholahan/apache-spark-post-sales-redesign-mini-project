@@ -7,101 +7,85 @@ This project focuses on redesigning an existing post-sales data pipeline in Apac
 
 
 ## 🛠 Requirements
-- Apache Spark (Databricks or local Spark environment)
-- Customer churn and post-sales datasets (CSV format)
-- Proficiency in PySpark and Spark SQL
-- Ability to use Spark DataFrames and write clean transformation logic
-- Optional: Data visualization tools or export to CSV
+- Ubuntu / WSL environment
+- Java and Apache Spark installed locally
+- PySpark (Python bindings for Spark)
+- WSL2 with Ubuntu 22.04 (via Windows Terminal)
+- Python 3
+- Virtual environment for dependency isolation
 
 
 
 ## 🧰 Setup
-- Download the legacy post-sales datasets
-- Inspect the provided starter Spark pipeline
-- Create a new Spark notebook or script
-- Redesign and implement data transformations
-- Run job and validate output for accuracy
+- Clone the repository or copy the files locally
+- Ensure Java, Spark, and Python are correctly installed
+- Run the provided shell script (run.sh) which:
+  - Activates the virtual environment
+  - Deletes previous output directory (if any)
+  - Submits the PySpark job
+  - Deactivates the environment afterward
 
 
 
 ## 📊 Dataset
-- Input: Historical post-sales and customer churn data in CSV format
-- Fields include customer ID, churn flag, purchase history, plan type, and region
-- Data loaded into Spark DataFrames for transformation and aggregation
+- A CSV file named data.csv located in the project directory
+- Contains rows representing automobile sales entries
+- Columns include Make, Model, Year, etc.
 
 
 
 ## ⏱️ Run Steps
-- Read datasets into Spark DataFrames
-- Clean and transform raw fields using PySpark
-- Apply business rules to derive metrics (e.g., churn rate, sales trends)
-- Write final output to a CSV or display DataFrame
-- Optionally visualize results or export to downstream systems
+- Launch Ubuntu shell in the project directory
+- Run bash run.sh
+- The script handles environment setup and job submission
 
 
 
 ## 📈 Outputs
-- Aggregated dataset summarizing post-sales trends and churn insights
-- Redesigned Spark logic implementing modular transformations
-- Output CSV or printed DataFrame summarizing final business metrics
-- Optional visualizations or graphs based on trends
+- Output directory written by Spark (./output)
+- Contains part-00000 file with final results
+- Each line is in the format: Make-Year,Count
+- _SUCCESS marker to indicate job completion
 
 
 
 ## 📸 Evidence
 
-![dataset_preview.png](./evidence/dataset_preview.png)  
-Screenshot of Spark DataFrame showing preview of cleaned dataset
-
-![report_output.png](./evidence/report_output.png)  
-Screenshot of final aggregated output file contents
-
-![spark_job_dag.png](./evidence/spark_job_dag.png)  
-Screenshot of Spark job DAG representing execution flow
-
-![transformation_logic.png](./evidence/transformation_logic.png)  
-Screenshot of code applying business logic transformations
+![autoinc_script_output.png](./evidence/autoinc_script_output.png)  
+Terminal output showing successful Spark execution and file creation
 
 
 
 
 ## 📎 Deliverables
 
-- [`- Spark notebook implementing redesign of post-sales reporting pipeline`](./deliverables/- Spark notebook implementing redesign of post-sales reporting pipeline)
+- [`autoinc_spark.py`](./deliverables/autoinc_spark.py)
 
-- [`- Transformed sales and customer churn datasets`](./deliverables/- Transformed sales and customer churn datasets)
+- [`run.sh`](./deliverables/run.sh)
 
-- [`- Final CSV output file summarizing key metrics stored in /deliverables/`](./deliverables/- Final CSV output file summarizing key metrics stored in /deliverables/)
-
-- [`- Summary notes discussing redesign choices and business rationale`](./deliverables/- Summary notes discussing redesign choices and business rationale)
-
-- [`- README with project overview, run steps, and data description`](./deliverables/- README with project overview, run steps, and data description)
+- [`.part-00000.crc`](./deliverables/.part-00000.crc)
 
 
 
 
 ## 🛠️ Architecture
-- Spark-based data pipeline
-- Input CSV files loaded into Spark DataFrames
-- PySpark transformations for cleaning, deriving, and aggregating data
-- Output in-memory or exported as CSV
-- No complex orchestration or external dependencies
+- Standalone PySpark job executed via spark-submit
+- Local CSV source -> RDD transformation -> grouped counts -> saved text file
+- All compute done locally (single-node)
 
 
 
 ## 🔍 Monitoring
-- Manual inspection of Spark job DAG
-- Printed output or CSV validation
-- Spark UI optional for stage-level review
-- Compare before-and-after results using summary statistics
+- Observed job status via terminal
+- Used _SUCCESS file as job completion confirmation
+- Optionally monitored performance via log messages
 
 
 
 ## ♻️ Cleanup
-- Delete temporary or intermediate DataFrames
-- Clean up workspace files or staging outputs
-- Save only final outputs and the refined notebook in the repository
+- Remove generated output/ directory between runs
+- Optionally archive logs or old outputs
+- Virtual environment stored locally and excluded via .gitignore
 
 
-
-*Generated automatically via Python + Jinja2 + SQL Server table `tblMiniProjectProgress` on 09-15-2025 19:26:56*
+*Generated automatically via Python + Jinja2 + SQL Server table `tblMiniProjectProgress` on 09-17-2025 01:09:29*
