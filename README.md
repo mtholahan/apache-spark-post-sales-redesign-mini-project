@@ -51,8 +51,11 @@ This project focuses on redesigning an existing post-sales data pipeline in Apac
 
 ## 📸 Evidence
 
-![autoinc_script_output.png](./evidence/autoinc_script_output.png)  
+![01_autoinc_script_output.png](./evidence/01_autoinc_script_output.png)  
 Terminal output showing successful Spark execution and file creation
+
+![02_output_file.png](./evidence/02_output_file.png)  
+The Spark output file
 
 
 
@@ -62,8 +65,6 @@ Terminal output showing successful Spark execution and file creation
 - [`autoinc_spark.py`](./deliverables/autoinc_spark.py)
 
 - [`run.sh`](./deliverables/run.sh)
-
-- [`.part-00000.crc`](./deliverables/.part-00000.crc)
 
 
 
@@ -88,4 +89,4 @@ Terminal output showing successful Spark execution and file creation
 - Virtual environment stored locally and excluded via .gitignore
 
 
-*Generated automatically via Python + Jinja2 + SQL Server table `tblMiniProjectProgress` on 09-17-2025 01:13:05*
+*Generated automatically via Python + Jinja2 + SQL Server table `tblMiniProjectProgress` on 09-17-2025 01:20:50*
